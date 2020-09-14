@@ -45,8 +45,6 @@ int main(int argc, char ** argv)
 		}
 	}
 	
-	
-
 	//Sumar matriz A + matriz B
 	
 	for(int i = 0; i < fila; i++)
