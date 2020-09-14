@@ -1,3 +1,13 @@
+/*
+	Autor: Edgard  Diaz
+	Este programa suma dos matrices, e. g. 
+	
+	| 2 1 | + | 1 2 | = | 3 3 | 
+	| 1 2 |   | 2 1 |   | 3 3 |
+	
+	Visita mi canal  de YouTube: 
+	https://www.youtube.com/channel/UC72s6VupjSyABlMZhDkFblg?view_as=subscriber
+*/
 #include <iostream>
 using namespace std; 
 
