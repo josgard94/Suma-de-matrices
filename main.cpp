@@ -1,69 +1,121 @@
 /*
-	Autor: Edgard  Diaz
-	Este programa suma dos matrices, e. g. 
-	
-	| 2 1 | + | 1 2 | = | 3 3 | 
-	| 1 2 |   | 2 1 |   | 3 3 |
-	
-	Visita mi canal  de YouTube: 
-	https://www.youtube.com/channel/UC72s6VupjSyABlMZhDkFblg?view_as=subscriber
-*/
-#include <iostream>
-using namespace std; 
+    Autor: Edgard Diaz
 
-int main(int argc, char ** argv)
+    Este programa suma dos matrices.
+
+    Ejemplo:
+
+    | 2 1 |   +   | 1 2 |   =   | 3 3 |
+    | 1 2 |       | 2 1 |       | 3 3 |
+*/
+
+#include <iostream>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+// Función para ingresar los valores de una matriz
+void ingresarMatriz(vector<vector<float>>& matriz, const string& nombre)
 {
-	//Declaración de variables //
-	int fila = 0, columna = 0;
-	float matriz_a[fila][columna], matriz_b[fila][columna], suma[fila][columna];
-	//Pedir al usuario el numero de filas y columnas de las  matrices recordar que  el número de filas de A debe ser igual al de B //
-	cout<<"Numero de columnas"<<endl;
-	cin>>columna;
-	cout<<"Numero de filas"<<endl;
-	cin>>fila;
-	//Ingresar los  datos de la  matriz  A//
-	cout<<"Ingrese los valores de la matriz A:"<<endl;
-	
-	for(int i = 0; i < fila; i++)
-	{
-		for(int j = 0; j < columna; j++)
-		{
-			cout<<"fila: "<<i<<" columna: "<<j<<" ";
-			cin>>matriz_a[i][j];
-		}
-	}
-	
-	//Ingresar los  datos de la  matriz  B//
-	cout<<"Ingrese los valores de la matriz B:"<<endl;
-	
-	for(int i = 0; i < fila; i++)
-	{
-		for(int j = 0; j < columna; j++)
-		{
-			cout<<"fila: "<<i<<" columna: "<<j<<" ";
-			cin>>matriz_b[i][j];
-		}
-	}
-	
-	//Sumar matriz A + matriz B
-	
-	for(int i = 0; i < fila; i++)
-	{
-		for(int j = 0; j < columna; j++)
-		{
-			suma[i][j] = matriz_a[i][j] + matriz_b[i][j];
-		}
-	}
-	//Mostrar el restado de la suma en la pantalla//
-	cout<<"La suma de las matrices es: "<< endl;
-	
-	for(int i = 0; i < fila; i++)
-	{	cout<<"| ";
-		for(int j = 0; j < columna; j++)
-		{
-			cout<<suma[i][j]<<" ";
-		}
-		cout<<"|"<<endl;
-	}
-	
+    cout << "\nIngrese los valores de la matriz " << nombre << ":\n";
+
+    for (size_t i = 0; i < matriz.size(); i++)
+    {
+        for (size_t j = 0; j < matriz[i].size(); j++)
+        {
+            cout << "Fila " << i + 1
+                 << ", columna " << j + 1 << ": ";
+
+            cin >> matriz[i][j];
+        }
+    }
+}
+
+// Función para mostrar una matriz
+void mostrarMatriz(const vector<vector<float>>& matriz)
+{
+    for (const auto& fila : matriz)
+    {
+        cout << "| ";
+
+        for (float valor : fila)
+        {
+            cout << setw(6) << valor << " ";
+        }
+
+        cout << "|\n";
+    }
+}
+
+// Función para sumar dos matrices
+vector<vector<float>> sumarMatrices(
+    const vector<vector<float>>& matrizA,
+    const vector<vector<float>>& matrizB)
+{
+    size_t filas = matrizA.size();
+    size_t columnas = matrizA[0].size();
+
+    vector<vector<float>> resultado(
+        filas,
+        vector<float>(columnas)
+    );
+
+    for (size_t i = 0; i < filas; i++)
+    {
+        for (size_t j = 0; j < columnas; j++)
+        {
+            resultado[i][j] = matrizA[i][j] + matrizB[i][j];
+        }
+    }
+
+    return resultado;
+}
+
+int main()
+{
+    int filas;
+    int columnas;
+
+    cout << "===== SUMA DE MATRICES =====\n\n";
+
+    // Solicitar dimensiones
+    cout << "Numero de filas: ";
+    cin >> filas;
+
+    cout << "Numero de columnas: ";
+    cin >> columnas;
+
+    // Validar dimensiones
+    if (filas <= 0 || columnas <= 0)
+    {
+        cout << "\nError: las filas y columnas deben ser mayores que 0.\n";
+        return 1;
+    }
+
+    // Crear las matrices después de conocer sus dimensiones
+    vector<vector<float>> matrizA(
+        filas,
+        vector<float>(columnas)
+    );
+
+    vector<vector<float>> matrizB(
+        filas,
+        vector<float>(columnas)
+    );
+
+    // Ingresar matrices
+    ingresarMatriz(matrizA, "A");
+    ingresarMatriz(matrizB, "B");
+
+    // Realizar suma
+    vector<vector<float>> resultado =
+        sumarMatrices(matrizA, matrizB);
+
+    // Mostrar resultado
+    cout << "\n===== RESULTADO =====\n\n";
+
+    mostrarMatriz(resultado);
+
+    return 0;
 }
